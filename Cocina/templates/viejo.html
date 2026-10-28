@@ -1,0 +1,52 @@
+{% extends 'plantilla.html' %}
+{% block titulo %}Datos viejos{% endblock %}
+
+{% block contenido_principal %}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-2 mb-4">
+    <div>
+        <h1 class="h3 mb-1">Datos antiguos</h1>
+        <p class="text-muted mb-0">Registros con fecha anterior o igual a ayer</p>
+    </div>
+    <span class="badge text-bg-primary-subtle text-primary-emphasis rounded-pill px-3 py-2">
+        {{ dt|length }} registro{{ dt|length|pluralize }}
+    </span>
+</div>
+
+<div class="card">
+    <div class="card-header py-3">
+        <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-table text-primary"></i>
+            <h5 class="mb-0">Listado</h5>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">Nombre</th>
+                        <th>Valor</th>
+                        <th class="pe-4 text-end text-md-start">Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dato in dt %}
+                    <tr>
+                        <td class="ps-4 fw-medium">{{ dato.nombre }}</td>
+                        <td>{{ dato.Valor }}</td>
+                        <td class="pe-4 text-muted text-end text-md-start">{{ dato.Fecha|date:"d/m/Y H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" class="text-center text-muted py-5">
+                            <i class="bi bi-inbox display-6 d-block mb-2"></i>
+                            No hay datos antiguos
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
